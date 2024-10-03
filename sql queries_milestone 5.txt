@@ -1,0 +1,117 @@
+1.What is the gender distribution of respondents from India?
+SELECT Gender, COUNT(*) AS count
+FROM career.career
+WHERE Country = 'India'
+GROUP BY Gender;
+
+2.What percentage of respondents from India are interested in education abroad and sponsorship?
+SELECT 
+    (COUNT(*) * 100.0 / (SELECT COUNT(*) FROM career.career WHERE Country = 'India')) AS percentage
+FROM career.career
+WHERE Country = 'India'
+AND `Higher Education Aspirations` LIKE '%depends on money%';
+
+3.What are the 6 top influences on career aspirations for respondents in India?
+SELECT `Influencing Factors`, COUNT(*) AS count
+FROM career.career
+WHERE Country = 'India'
+GROUP BY `Influencing Factors`
+ORDER BY count DESC
+LIMIT 6;
+
+4. How do career aspiration influences vary by gender in India?
+SELECT Gender, `Influencing Factors`, COUNT(*) AS count
+FROM career.career
+WHERE Country = 'India'
+GROUP BY Gender, `Influencing Factors`
+ORDER BY Gender, count DESC;
+
+5. What percentage of respondents are willing to work for a company for at least 3 years?
+SELECT 
+    (COUNT(*) * 100.0) / (SELECT COUNT(*) FROM career.career) AS percentage
+FROM career.career
+WHERE `3 years job tenurity` = 'Yes';
+
+6. How many respondents prefer to work for socially impactful companies?
+SELECT COUNT(*) AS count
+FROM career.career
+WHERE `Work for nonsocial impact company` = '1,2,3,4,5' ;
+
+7. How does the preference for socially impactful companies vary by gender?
+SELECT Gender, COUNT(*) AS count
+FROM career.career
+WHERE `Work for nonsocial impact company` = '1,2,3,4,5'
+GROUP BY Gender;
+
+8. What is the distribution of minimum expected salary in the first three years among respondents?
+SELECT 'Starting salary expectation as a fresher', COUNT(*) AS count
+FROM career.career
+GROUP BY 'Starting salary expectation as a fresher'
+ORDER BY count DESC;
+
+9. What is the expected minimum monthly salary in hand?
+SELECT MIN(`Starting salary expectation as a fresher`) AS min_salary
+FROM career.career;
+
+10. What percentage of respondents prefer remote working?
+SELECT 
+    (COUNT(*) * 100.0) / (SELECT COUNT(*) FROM career.career) AS percentage
+FROM career.career
+WHERE `Working Environment` = 'Remote';
+
+11. What is the preferred number of daily work hours?
+SELECT `Working hours expectations`, COUNT(*) AS count
+FROM career.career
+GROUP BY `Working hours expectations`
+ORDER BY count DESC;
+
+12. What are the common work frustrations among respondents?
+SELECT `What would frustrate you at work`, COUNT(*) AS count
+FROM career.career
+GROUP BY `What would frustrate you at work`
+ORDER BY count DESC;
+
+13. How does the need for work-life balance interventions vary by gender?
+SELECT Gender, COUNT(*) AS count
+FROM career.career
+WHERE 'How often do you need a full week off'
+GROUP BY Gender
+ORDER BY count DESC;
+
+14. How many respondents are willing to work under an abusive manager?
+SELECT COUNT(*) AS count
+FROM career.career
+WHERE `Would you work for an abusive manager` = 'Yes';
+
+
+15. What is the distribution of minimum expected salary after five years?
+SELECT `Minimum salary after 5 years`, COUNT(*) AS count
+FROM career.career
+GROUP BY `Minimum salary after 5 years`
+ORDER BY count DESC;
+
+16. What are the remote working preferences by gender?
+SELECT Gender, `Working environment`, COUNT(*) AS count
+FROM career.career
+GROUP BY Gender, `Working environment` 
+ORDER BY Gender, count DESC;
+
+17. What are the top work frustrations for each gender?
+SELECT Gender, `What would frustrate you at work`, COUNT(*) AS count
+FROM career.career
+GROUP BY Gender, `What would frustrate you at work`
+ORDER BY Gender, count DESC;
+
+18. What factors boost work happiness and productivity for respondents?
+SELECT `Things make you happier and productive at work`, COUNT(*) AS count
+FROM career.career
+GROUP BY `Things make you happier and productive at work`
+ORDER BY count DESC;
+
+19. What percentage of respondents need sponsorship for education abroad?
+SELECT 
+    (COUNT(*) * 100.0) / (SELECT COUNT(*) FROM career.career) AS percentage
+FROM career.career
+WHERE `Higher Education Aspirations` = 'Depends on Money' ;
+
+
